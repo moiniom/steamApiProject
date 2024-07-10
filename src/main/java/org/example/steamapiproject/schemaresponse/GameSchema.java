@@ -1,4 +1,4 @@
-package org.example.steamapiproject;
+package org.example.steamapiproject.schemaresponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

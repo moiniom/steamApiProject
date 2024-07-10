@@ -6,4 +6,6 @@ module org.example.steamapiproject {
 
     opens org.example.steamapiproject to javafx.fxml;
     exports org.example.steamapiproject;
+    exports org.example.steamapiproject.schemaresponse;
+    opens org.example.steamapiproject.schemaresponse to javafx.fxml;
 }
