@@ -8,8 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application{
-
-    private String key = "";
+    private SteamAPI api = new SteamAPI();
 
     public static void main(String[] args) {
         launch();
@@ -61,7 +60,7 @@ public class Main extends Application{
     }
 
     private void setKey(TextField keyField) {
-        key = keyField.getText();
+        api.setKey(keyField.getText().toUpperCase().strip());
         Stage stage = (Stage) keyField.getScene().getWindow();
         stage.close();
     }

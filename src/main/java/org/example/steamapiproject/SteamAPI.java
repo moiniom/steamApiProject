@@ -1,21 +1,56 @@
 package org.example.steamapiproject;
 
-import java.net.MalformedURLException;
+import javax.net.ssl.HttpsURLConnection;
+import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
 public class SteamAPI {
-
-    private final String base = "https://api.steampowered.com/";
-    private String api = "";
     private String key = "";
 
-    public String reqGameSchema(int gameid) {
-        return null;
+    public String gameSchema(int gameid) throws IOException {
+        String api = "";
+        HashMap<String, String> args = new HashMap<>();
+        args.put("gameid", String.valueOf(gameid));
+        return makeReq(api, args);
     }
 
-    public String reqGameAchievementStats(int gameid) {
-        return null;
+    public String getAchievementStats(int gameid) throws IOException {
+        String api = "ISteamUserStats/GetGlobalAchievementPercentageForApp/v1";
+        HashMap<String, String> args = new HashMap<>();
+        args.put("gameid", String.valueOf(gameid));
+        return makeReq(api, args);
     }
 
-    //public String
+    public String getOwnedGames(int steamid) throws IOException {
+        String api = "IPlayerService/GetOwnedGames/v1";
+        HashMap<String, String> args = new HashMap<>();
+        args.put("steamid", String.valueOf(steamid));
+        args.put("include_appinfo", "true");
+        args.put("include_played_free_games", "true");
+        return makeReq(api, args);
+    }
+
+    public String getPlayerAchievements(int steamid, int gameid) throws IOException {
+        String api = "ISteamUserStats/GetPlayerAchievements/v1";
+        HashMap<String, String> args = new HashMap<>();
+        args.put("steamid", String.valueOf(steamid));
+        args.put("gameid", String.valueOf(gameid));
+        return makeReq(api, args);
+    }
+
+    private String makeReq(String api, HashMap<String, String> args) throws IOException {
+        String base = "https://api.steampowered.com/";
+        StringBuilder link = new StringBuilder(base + api + "?key=" + key);
+        for(String arg : args.keySet()) {
+            link.append("&").append(arg).append("=").append(args.get(arg));
+        }
+        URL url = new URL(link.toString());
+        HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+        return (String) connection.getContent();
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
