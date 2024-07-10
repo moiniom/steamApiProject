@@ -5,10 +5,20 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 
 public class Main extends Application{
     private SteamAPI api = new SteamAPI();
+
+    private AnchorPane root = new AnchorPane();
+    private MenuBar menuBar = new MenuBar();
+    private Menu fileMenu = new Menu("File");
+    private Menu settingsMenu = new Menu("Settings");
+    private MenuItem exitItem = new MenuItem("Exit");
+    private MenuItem settingApiKey = new MenuItem("Change API Key");
+    private ScrollPane games = new ScrollPane();
 
     public static void main(String[] args) {
         launch();
@@ -16,14 +26,17 @@ public class Main extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        AnchorPane root = new AnchorPane();
-        MenuBar menuBar = new MenuBar();
-        Menu fileMenu = new Menu("File");
-        Menu settingsMenu = new Menu("Settings");
-        MenuItem exitItem = new MenuItem("Exit");
-        MenuItem settingApiKey = new MenuItem("Change API Key");
 
-        root.getChildren().addAll(menuBar);
+
+        root.getChildren().add(
+                new VBox(
+                        menuBar,
+                        new HBox(
+                                games
+                        )
+                )
+        );
+
         menuBar.getMenus().addAll(
                 fileMenu,
                 settingsMenu

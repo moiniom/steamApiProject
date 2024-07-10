@@ -1,7 +1,9 @@
 package org.example.steamapiproject;
 
 import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -9,9 +11,9 @@ public class SteamAPI {
     private String key = "";
 
     public String gameSchema(int gameid) throws IOException {
-        String api = "";
+        String api = "ISteamUserStats/GetSchemaForGame/v2";
         HashMap<String, String> args = new HashMap<>();
-        args.put("gameid", String.valueOf(gameid));
+        args.put("appid", String.valueOf(gameid));
         return makeReq(api, args);
     }
 
@@ -47,7 +49,8 @@ public class SteamAPI {
         }
         URL url = new URL(link.toString());
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
-        return (String) connection.getContent();
+        BufferedReader result = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        return result.readLine();
     }
 
     public void setKey(String key) {

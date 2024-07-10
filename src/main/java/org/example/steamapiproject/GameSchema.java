@@ -1,16 +1,30 @@
 package org.example.steamapiproject;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GameSchema {
-    private String name;
-    private int version;
-    private List<Achievement> achievements;
+    public String name;
+    public int version;
+    public GameStats gameStats;
 
-    public GameSchema(String name, int version, List<Achievement> achievements) {
+    public GameSchema(
+            @JsonProperty("gameName") String name,
+            @JsonProperty("gameVersion") int version,
+            @JsonProperty("availableGameStats") GameStats availibleGameStats) {
         this.name = name;
         this.version = version;
-        this.achievements = achievements;
+        this.gameStats = availibleGameStats;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public GameStats getGameStats() {
+        return gameStats;
     }
 }
