@@ -2,9 +2,7 @@ package org.example.steamapiproject.schemaresponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SchemaResponse {
-    public GameSchema game;
-
+public record SchemaResponse(GameSchema game) {
     public SchemaResponse(
             @JsonProperty("game") GameSchema game
     ) {
