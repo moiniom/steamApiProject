@@ -2,8 +2,8 @@ package org.example.steamapiproject.playerachivementresponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record Achievement(String name, boolean achieved, int unlockTime) {
-    public Achievement(
+public record PlayerAchievement(String name, boolean achieved, int unlockTime) {
+    public PlayerAchievement(
             @JsonProperty("apiname") String name,
             @JsonProperty("achieved") boolean achieved,
             @JsonProperty("unlocktime") int unlockTime

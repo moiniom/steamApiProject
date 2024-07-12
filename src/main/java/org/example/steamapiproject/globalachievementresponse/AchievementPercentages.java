@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public record AchievementPercentages(List<Achievement> achievements) {
+public record AchievementPercentages(List<GlobalAchievement> globalAchievements) {
     public AchievementPercentages(
-            @JsonProperty("achievements") List<Achievement> achievements
+            @JsonProperty("achievements") List<GlobalAchievement> globalAchievements
     ) {
-        this.achievements = achievements;
+        this.globalAchievements = globalAchievements;
     }
 }

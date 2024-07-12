@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public record Game(int gameid, String name, int totalPlaytime, int last2WeeksPlaytime, String iconUrl,
-                   boolean hasPublicStats, boolean hasLeaderBoards, int windowsPlaytime, int macPlaytime,
-                   int linuxPlaytime, int steamDeckPlaytime, int rtimeLastPlayed, List<Integer> contentDescriptorIds,
-                   int playtimeDisconnected) {
-    public Game(
+public record GameRecord(int gameid, String name, int totalPlaytime, int last2WeeksPlaytime, String iconUrl,
+                         boolean hasPublicStats, boolean hasLeaderBoards, int windowsPlaytime, int macPlaytime,
+                         int linuxPlaytime, int steamDeckPlaytime, int rtimeLastPlayed, List<Integer> contentDescriptorIds,
+                         int playtimeDisconnected) {
+    public GameRecord(
             @JsonProperty("appid") int gameid,
             @JsonProperty("name") String name,
             @JsonProperty("playtime_forever") int totalPlaytime,

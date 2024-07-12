@@ -2,9 +2,9 @@ package org.example.steamapiproject.schemaresponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record Achievement(String name, boolean defaultValue, String displayName, boolean hidden, String description,
-                          String icon, String iconGray) {
-    public Achievement(
+public record SchemaAchievement(String name, boolean defaultValue, String displayName, boolean hidden, String description,
+                                String icon, String iconGray) {
+    public SchemaAchievement(
             @JsonProperty("name") String name,
             @JsonProperty("defaultvalue") boolean defaultValue,
             @JsonProperty("displayName") String displayName,

@@ -65,8 +65,12 @@ public class SteamAPI {
         return result.readLine();
     }
 
-    //Sets the api key
+    //Sets the api key.txt
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getKey() {
+        return key;
     }
 }
