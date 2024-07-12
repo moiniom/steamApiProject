@@ -5,6 +5,7 @@ import org.example.steamapiproject.globalachievementresponse.AchievementResponse
 import org.example.steamapiproject.ownedresponse.OwnedResponse;
 import org.example.steamapiproject.playerachivementresponse.PlayerResponse;
 import org.example.steamapiproject.schemaresponse.SchemaResponse;
+import org.example.steamapiproject.vanityResolve.VanityResponse;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -50,6 +51,15 @@ public class SteamAPI {
         args.put("steamid", String.valueOf(steamid));
         args.put("appid", String.valueOf(gameid));
         return mapper.readValue(makeReq(api, args), PlayerResponse.class);
+    }
+
+    //returns Steamid from vanity url
+    public String getSteamIdOf(String vanityUrl) throws IOException {
+        String api = "ISteamUser/ResolveVanityURL/v0001/";
+        HashMap<String, String> args = new HashMap<>();
+        args.put("userVanityUrlName", vanityUrl);
+        VanityResponse response = mapper.readValue(makeReq(api, args), VanityResponse.class);
+        return response.responseBody().steamId();
     }
 
     //makes the actual request and returns the given JSON string
