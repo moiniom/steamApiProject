@@ -55,16 +55,14 @@ public class Achievement {
                 new ImageView(icon),
                 new VBox(
                         name,
+                        description,
                         new HBox(
-                                description,
-                                new VBox(
-                                        new Label("Unlocked"),
-                                        new Label(String.valueOf(unlocked))
-                                ),
-                                new VBox(
-                                        new Label("Global%"),
-                                        percentage
-                                )
+                                new Label("Unlocked: "),
+                                new Label(String.valueOf(unlocked))
+                        ),
+                        new HBox(
+                                new Label("Global-%: "),
+                                percentage
                         )
                 )
         );

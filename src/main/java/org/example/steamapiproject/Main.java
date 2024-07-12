@@ -37,8 +37,6 @@ public class Main extends Application{
     private final VBox gameBox = new VBox();
     private final VBox achievements = new VBox();
 
-    TextArea errormessage = new TextArea();
-
     public static void main(String[] args) {
         launch();
     }
@@ -133,8 +131,7 @@ public class Main extends Application{
                 games.add(game);
             }
         } catch (IOException e) {
-            gameBox.getChildren().add(new Label("Connection error"));
-            errormessage.setText(e.toString());
+            gameBox.getChildren().add(new Label("Connection Error"));
         }
     }
 

@@ -46,23 +46,23 @@ public class Game {
                         name,
                         new VBox(
                                 new HBox(
-                                        new Label("All"),
+                                        new Label("All: "),
                                         playtimeAll
                                 ),
                                 new HBox(
-                                        new Label("Win"),
+                                        new Label("Win: "),
                                         playtimeWin
                                 ),
                                 new HBox(
-                                        new Label("Lin"),
+                                        new Label("Lin: "),
                                         playtimeLin
                                 ),
                                 new HBox(
-                                        new Label("Mac"),
+                                        new Label("Mac: "),
                                         playtimeMac
                                 ),
                                 new HBox(
-                                        new Label("Deck"),
+                                        new Label("Deck: "),
                                         playtimeDec
                                 )
                         )
