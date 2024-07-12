@@ -23,22 +23,26 @@ public class Game {
 
     private final int gameId;
 
-    public Game(GameRecord gameRecord) throws IOException {
+    public Game(GameRecord gameRecord) {
         this.gameRecord = gameRecord;
         gameId = this.gameRecord.gameid();
         buildGUI();
     }
 
-    private void buildGUI() throws IOException {
+    private void buildGUI() {
         name = new Label(gameRecord.name());
         playtimeAll = new Label(String.valueOf(gameRecord.totalPlaytime()));
         playtimeWin = new Label(String.valueOf(gameRecord.windowsPlaytime()));
         playtimeLin = new Label(String.valueOf(gameRecord.linuxPlaytime()));
         playtimeMac = new Label(String.valueOf(gameRecord.macPlaytime()));
         playtimeDec = new Label(String.valueOf(gameRecord.steamDeckPlaytime()));
-        image = new Image(new URL(
-                "http://media.steampowered.com/steamcommunity/public/images/apps/"+gameId+"/"+gameRecord.iconUrl()+".jpg"
-        ).openConnection().getInputStream());
+        try {
+            image = new Image(new URL(
+                    "http://media.steampowered.com/steamcommunity/public/images/apps/"+gameId+"/"+gameRecord.iconUrl()+".jpg"
+            ).openConnection().getInputStream());
+        } catch (IOException e) {
+            image = new Image("src/main/resources/org/example/steamapiproject/error.jpg");
+        }
 
         root.getChildren().addAll(
                 new ImageView(image),

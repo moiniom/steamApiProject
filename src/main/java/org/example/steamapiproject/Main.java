@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 
-public class Main extends Application{
+public class Main extends Application {
     private final SteamAPI api = new SteamAPI();
     private String steamId = "";
 
@@ -68,7 +68,7 @@ public class Main extends Application{
                 achievementBox
         );
 
-        VBox root =  new VBox(
+        VBox root = new VBox(
                 menuBar,
                 idBox,
                 displayBox
@@ -82,7 +82,6 @@ public class Main extends Application{
         settingApiKey.setOnAction(event -> setKeyWin());
 
         steamIdButton.setOnAction(event -> setSteamId());
-
 
         stage.setTitle("Steam API");
         stage.setScene(new Scene(root, 600, 600));
@@ -122,16 +121,33 @@ public class Main extends Application{
 
     private void updateGames() {
         gameBox.getChildren().clear();
+        OwnedResponse response = null;
         try {
-            OwnedResponse response = api.getOwnedGames(steamId);
-            for (GameRecord gameRecord : response.ownedGames().gameRecords()) {
-                Game game = new Game(gameRecord);
-                gameBox.getChildren().add(game.getGUI());
-                game.getGUI().setOnMouseClicked(event -> loadAchievements(game));
-                games.add(game);
-            }
+            response = api.getOwnedGames(steamId);
         } catch (IOException e) {
-            gameBox.getChildren().add(new Label("Connection Error"));
+            tryVanity();
+            try {
+                response = api.getOwnedGames(steamId);
+            } catch (IOException ex) {
+                gameBox.getChildren().add(new Label("Connection Error/Wrong ID"));
+            }
+        }
+        for (GameRecord gameRecord : response.ownedGames().gameRecords()) {
+            Game game = new Game(gameRecord);
+            gameBox.getChildren().add(game.getGUI());
+            game.getGUI().setOnMouseClicked(event -> loadAchievements(game));
+            games.add(game);
+        }
+    }
+
+    private void tryVanity() {
+        String temp = steamIdField.getText().strip();
+        try {
+            steamId = api.getSteamIdOf(temp);
+            System.out.println(steamId);
+            updateGames();
+        } catch (IOException e) {
+            gameBox.getChildren().add(new Label("Connection Error/Wrong ID"));
         }
     }
 
@@ -153,7 +169,7 @@ public class Main extends Application{
             List<GlobalAchievement> globalAchievements = globalResponse.achievementPercentages().globalAchievements();
             List<PlayerAchievement> playerAchievements = playerResponse.playerAchievements().playerAchievements();
 
-            for(SchemaAchievement schemaAchievement : schemaAchievements) {
+            for (SchemaAchievement schemaAchievement : schemaAchievements) {
                 List<Object> achievementParams = new ArrayList<>();
                 achievementParams.add(schemaAchievement);
                 for (GlobalAchievement globalAchievement : globalAchievements) {

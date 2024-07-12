@@ -57,8 +57,9 @@ public class SteamAPI {
     public String getSteamIdOf(String vanityUrl) throws IOException {
         String api = "ISteamUser/ResolveVanityURL/v0001/";
         HashMap<String, String> args = new HashMap<>();
-        args.put("userVanityUrlName", vanityUrl);
-        VanityResponse response = mapper.readValue(makeReq(api, args), VanityResponse.class);
+        args.put("vanityurl", vanityUrl);
+        String content = makeReq(api, args);
+        VanityResponse response = mapper.readValue(content, VanityResponse.class);
         return response.responseBody().steamId();
     }
 
